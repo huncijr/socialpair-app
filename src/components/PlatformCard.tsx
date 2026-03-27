@@ -17,30 +17,42 @@ export function PlatformCard({ platform }: PlatformCardProps) {
   return (
     <Link
       to={`/platform/${platform.id}`}
-      className="block bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow p-6 border border-gray-100"
+      className="block bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300 ease-out p-6 border border-gray-100 dark:border-gray-700 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
     >
       <div className="flex items-center gap-4 mb-4">
-        <span className="text-4xl">{platform.logo}</span>
+        <span className="text-4xl transition-transform duration-200 hover:scale-110">
+          {platform.logo}
+        </span>
         <div>
-          <h2 className="text-xl font-bold text-gray-900">{platform.name}</h2>
-          <p className="text-sm text-gray-500">Founded {platform.founded}</p>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+            {platform.name}
+          </h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Founded {platform.founded}
+          </p>
         </div>
       </div>
-      <p className="text-gray-600 text-sm mb-4 line-clamp-2">{platform.description}</p>
+      <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
+        {platform.description}
+      </p>
       <div className="flex justify-between text-sm">
         <div>
-          <p className="text-gray-400">Monthly Users</p>
-          <p className="font-semibold text-gray-900">
+          <p className="text-gray-400 dark:text-gray-500">Monthly Users</p>
+          <p className="font-semibold text-gray-900 dark:text-white">
             {platform.monthlyUsers.toLocaleString()}M
           </p>
         </div>
         <div>
-          <p className="text-gray-400">Target Age</p>
-          <p className="font-semibold text-gray-900">{platform.targetAge}</p>
+          <p className="text-gray-400 dark:text-gray-500">Target Age</p>
+          <p className="font-semibold text-gray-900 dark:text-white">
+            {platform.targetAge}
+          </p>
         </div>
         <div>
-          <p className="text-gray-400">Fame Score</p>
-          <p className="font-semibold text-indigo-600">{platform.fameScore}/100</p>
+          <p className="text-gray-400 dark:text-gray-500">Fame Score</p>
+          <p className="font-semibold text-indigo-600 dark:text-indigo-400">
+            {platform.fameScore}/100
+          </p>
         </div>
       </div>
     </Link>
