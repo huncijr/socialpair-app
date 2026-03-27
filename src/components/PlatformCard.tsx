@@ -3,6 +3,7 @@
  */
 import { Link } from 'react-router-dom';
 import type { Platform } from '../types/platform';
+import { PlatformIcon } from './PlatformIcon';
 
 /** Props for the PlatformCard component */
 interface PlatformCardProps {
@@ -20,9 +21,7 @@ export function PlatformCard({ platform }: PlatformCardProps) {
       className="block bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300 ease-out p-6 border border-gray-100 dark:border-gray-700 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
     >
       <div className="flex items-center gap-4 mb-4">
-        <span className="text-4xl transition-transform duration-200 hover:scale-110">
-          {platform.logo}
-        </span>
+        <PlatformIcon platformId={platform.id} platformName={platform.name} size="lg" />
         <div>
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">
             {platform.name}
