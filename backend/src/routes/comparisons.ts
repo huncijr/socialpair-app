@@ -1,7 +1,7 @@
 /**
  * Saved comparisons routes for managing user comparisons
  */
-import { Router, Request, Response } from 'express';
+import { Router, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import { prisma } from '../lib/prisma';
 import { AuthenticatedRequest, ErrorResponse } from '../types';

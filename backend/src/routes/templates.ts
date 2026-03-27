@@ -1,7 +1,7 @@
 /**
  * Templates routes for managing comparison templates
  */
-import { Router, Request, Response } from 'express';
+import { Router, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import { prisma } from '../lib/prisma';
 import { AuthenticatedRequest, ErrorResponse } from '../types';

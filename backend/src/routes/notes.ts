@@ -1,7 +1,7 @@
 /**
  * Notes routes for managing user notes
  */
-import { Router, Request, Response } from 'express';
+import { Router, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import { prisma } from '../lib/prisma';
 import { AuthenticatedRequest, ErrorResponse } from '../types';
