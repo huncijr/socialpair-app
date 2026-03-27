@@ -3,7 +3,7 @@
  */
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { AuthenticatedRequest, User } from '../types';
+import { AuthenticatedRequest } from '../types';
 import { prisma } from '../lib/prisma';
 
 /**

@@ -25,7 +25,7 @@ router.post(
     body('email').isEmail().normalizeEmail().withMessage('Valid email is required'),
     body('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters long'),
   ],
-  async (req: Request, res: Response): Promise<void> {
+  async (req: Request, res: Response) => {
     try {
       // Validate input
       const errors = validationResult(req);
@@ -103,7 +103,7 @@ router.post(
     body('email').isEmail().normalizeEmail().withMessage('Valid email is required'),
     body('password').notEmpty().withMessage('Password is required'),
   ],
-  async (req: Request, res: Response): Promise<void> {
+  async (req: Request, res: Response) => {
     try {
       // Validate input
       const errors = validationResult(req);
@@ -166,7 +166,7 @@ router.post(
 router.get(
   '/me',
   authenticateToken,
-  async (req: AuthenticatedRequest, res: Response): Promise<void> {
+  async (req: AuthenticatedRequest, res: Response) => {
     try {
       if (!req.user) {
         res.status(401).json({ error: 'User not authenticated' } as ErrorResponse);
