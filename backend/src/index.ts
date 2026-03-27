@@ -3,8 +3,15 @@
  */
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth';
+import userRoutes from './routes/user';
+import comparisonRoutes from './routes/comparisons';
+import alertRoutes from './routes/alerts';
+import noteRoutes from './routes/notes';
+import templateRoutes from './routes/templates';
 
 // Load environment variables
 dotenv.config();
@@ -13,8 +20,29 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 /**
+ * Security middleware
+ */
+app.use(helmet());
+
+/**
+ * Rate limiting configuration
+ */
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: { error: 'Too many requests, please try again later' },
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // limit each IP to 5 auth requests per windowMs
+  message: { error: 'Too many authentication attempts, please try again later' },
+});
+
+app.use(limiter);
+
+/**
  * CORS configuration
- * Allows requests from the frontend development server
  */
 const corsOptions = {
   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
@@ -29,8 +57,7 @@ app.use(express.json());
 
 /**
  * GET /api/health
- * Health check endpoint to verify server is running
- * @returns {status: string, timestamp: string}
+ * Health check endpoint
  */
 app.get('/api/health', (_req: Request, res: Response) => {
   res.status(200).json({
@@ -41,7 +68,12 @@ app.get('/api/health', (_req: Request, res: Response) => {
 });
 
 // API Routes
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authLimiter, authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/comparisons', comparisonRoutes);
+app.use('/api/alerts', alertRoutes);
+app.use('/api/notes', noteRoutes);
+app.use('/api/templates', templateRoutes);
 
 // 404 handler
 app.use((_req: Request, res: Response) => {

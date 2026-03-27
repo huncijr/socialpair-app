@@ -12,8 +12,67 @@ model User {
   email     String   @unique
   name      String
   password  String
+  bio       String?
+  avatarUrl String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  savedComparisons SavedComparison[]
+  alerts           Alert[]
+  notes            Note[]
+  templates        Template[]
+
   @@map("users")
+}
+
+model SavedComparison {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  platforms Json
+  notes     String?
+  data      Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("saved_comparisons")
+}
+
+model Alert {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platformId String
+  metric     String
+  condition  String
+  threshold  Float
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  @@map("alerts")
+}
+
+model Note {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platformId String?
+  title      String
+  content    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("notes")
+}
+
+model Template {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  platforms Json
+  createdAt DateTime @default(now())
+
+  @@map("templates")
 }
